@@ -8,7 +8,6 @@ class TaskManager extends ChangeNotifier {
 
   // Add a task
   void addTask(int id, Task task) {
-    print('addTask called: id=$id, isCompleted=${task.isCompleted}, isStarted=${task.isStarted}, status=${task.status}');
     _taskBox.put(id, task);
     notifyListeners();
   }

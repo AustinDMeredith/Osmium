@@ -1,5 +1,5 @@
-import 'dart:core';
 import 'package:hive/hive.dart';
+import 'dart:core';
 part 'task.g.dart';
 
 @HiveType(typeId: 1)

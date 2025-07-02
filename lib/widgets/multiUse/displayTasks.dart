@@ -23,7 +23,6 @@ class DisplayTasks extends StatelessWidget {
           borderRadius: BorderRadius.circular(25)
         ),
         
-        
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -90,10 +89,10 @@ class DisplayTasks extends StatelessWidget {
                   title: Text('$timeString - $name'),
                   trailing: TextButton(
                     onPressed: task.isStarted
-                        ? null
-                        : () {
-                            Provider.of<TaskManager>(context, listen: false).startTask(task);
-                          },
+                    ? null
+                    : () {
+                        Provider.of<TaskManager>(context, listen: false).startTask(task);
+                      },
                     child: Text(task.isStarted ? 'Started' : 'Start'),
                   ),
                 );

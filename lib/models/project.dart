@@ -1,5 +1,5 @@
-import 'dart:core';
 import 'package:hive/hive.dart';
+import 'dart:core';
 import '../models/goal.dart';
 import '../models/task.dart';
 import '../models/progresslog.dart';

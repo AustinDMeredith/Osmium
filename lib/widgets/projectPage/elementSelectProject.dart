@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../models/progresslog.dart';
 import 'package:provider/provider.dart';
+import '../../models/progresslog.dart';
 import '../../models/project.dart';
 import '../../models/projectManager.dart';
 import '../../models/task.dart';

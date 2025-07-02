@@ -71,7 +71,7 @@ class _ProjectsearchpageState extends State<Projectsearchpage> {
                     child: TextField(
                       autofocus: true,
                       decoration: const InputDecoration(
-                        hintText: 'Search goals...',
+                        hintText: 'Search projects...',
                         border: OutlineInputBorder(),
                         isDense: true,
                       ),
