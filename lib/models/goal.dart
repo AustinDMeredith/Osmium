@@ -28,7 +28,7 @@ class Goal {
   List<Progresslog> progressLogs;
 
   @HiveField(7)
-  List<Task> tasks;  
+  List<Task> tasks;
 
   Goal({
     required this.name,

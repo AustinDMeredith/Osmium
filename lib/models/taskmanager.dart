@@ -31,4 +31,10 @@ class TaskManager extends ChangeNotifier {
     if (_taskBox.isEmpty) return 0;
     return _taskBox.keys.cast<int>().reduce((a, b) => a > b ? a : b) + 1;
   }
+
+  void startTask(Task task) {
+    task.isStarted = true;
+    task.updateStatus();
+    notifyListeners();
+  }
 }

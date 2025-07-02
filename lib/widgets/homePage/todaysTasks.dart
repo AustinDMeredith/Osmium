@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import '../../models/taskmanager.dart';
-import '../../models/projectManager.dart';
-import '../../models/project.dart';
+import '../../helpers/onTaskCompleted.dart';
 
 class todaysTasks extends StatelessWidget {
   const todaysTasks({
@@ -87,35 +86,27 @@ class todaysTasks extends StatelessWidget {
                     final timeString = DateFormat('h:mm a').format(task.deadline);
                     String name = task.name;
                     children.add(
-                      CheckboxListTile(
+                      ListTile(
+                        leading: Checkbox(
+                          value: task.isCompleted,
+                          onChanged: (checked) {
+                            onTaskCompleted(taskManager, task, checked, context);
+                          },
+                        ),
                         title: Text(
-                          '$name - $timeString',
+                          '$timeString - $name',
                           style: TextStyle(
                             color: isOverdue ? Colors.red : null,
                           ),
                         ),
-                        value: task.isCompleted,
-                        onChanged: (checked) {
-                          final taskId = taskManager.tasks.entries
-                              .firstWhere((entry) => entry.value == task)
-                              .key;
-                          taskManager.addTask(taskId, task.copyWith(isCompleted: checked ?? true));
-
-                          // updates goals and projects if needed
-                          if (task.isOf == 'project') {
-                            final projects = Provider.of<ProjectManager>(context, listen: false).projects;
-                            Project? project = projects[task.parentId];
-                            if (project != null) {
-                              final idx = project.tasks.indexWhere((t) => t.name == task.name);
-                              if (idx != -1) {
-                                project.tasks[idx] = task.copyWith(isCompleted: checked ?? true);
-                                // Save the updated project back to the manager/box if needed
-                                Provider.of<ProjectManager>(context, listen: false).addProject(task.parentId, project);
-                                project.currentProgress += task.progressWeight;
-                              }
-                            }
-                          } // else if here for goals
-                        },
+                        trailing: TextButton(
+                          onPressed: task.isStarted
+                              ? null
+                              : () {
+                                  taskManager.startTask(task);
+                                },
+                          child: Text(task.isStarted ? 'Started' : 'Start'),
+                        ),
                       ),
                     );
                   }

@@ -34,6 +34,7 @@ class ProjectElementSelect extends StatelessWidget {
               taskManager.addTask(taskManager.getNextId(), newTask);
               project.tasks.add(newTask);
               projectManager.addProject(projectId, project);
+              
             });
         } else if (value == 'milestone') {
           // Add milestone logic

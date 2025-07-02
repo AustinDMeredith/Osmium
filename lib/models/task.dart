@@ -66,12 +66,14 @@ class Task {
       status = 'completed';
     } else if (deadline != null) {
       final now = DateTime.now();
-      if (deadline!.difference(now).inDays == -1) {
-        status = 'late';
-      } else if (deadline!.difference(now).inDays == 0) {
-        status = 'today';
-      } else if (isStarted) {
+      if (isStarted) {
         status = 'started';
+      } else if (now.isAfter(deadline!)) {
+        status = 'late';
+      } else if (deadline!.year == now.year &&
+        deadline!.month == now.month &&
+        deadline!.day == now.day) {
+          status = 'today';
       } else {
         status = 'upcoming';
       }
