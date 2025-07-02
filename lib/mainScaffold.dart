@@ -66,7 +66,8 @@ class _MainScaffoldState extends State<MainScaffold> {
         },
         onAddTask: (taskName, deadline) {
           final taskManager = Provider.of<TaskManager>(context, listen: false);
-          taskManager.addTask(taskManager.getNextId(), Task(name: taskName, deadline: deadline, progressWeight: 0));
+          int id = taskManager.getNextId();
+          taskManager.addTask(taskManager.getNextId(), Task(name: taskName, deadline: deadline, progressWeight: 0, id: id));
         },
       ),
       Projectsearchpage(onTabChange: _setTab, onViewProject: _viewProject),

@@ -29,9 +29,10 @@ class ProjectElementSelect extends StatelessWidget {
         if (value == 'task') {
           showTaskDialog(
             context, onSubmit: (name, deadline, weight) {
-              final newTask = Task(name: name, deadline: deadline, progressWeight: weight, isOf: 'project', parentId: projectId);
+              int id = taskManager.getNextId();
+              final newTask = Task(name: name, deadline: deadline, progressWeight: weight, isOf: 'project', parentId: projectId, id: id);
               newTask.updateStatus();
-              taskManager.addTask(taskManager.getNextId(), newTask);
+              taskManager.addTask(id, newTask);
               project.tasks.add(newTask);
               projectManager.addProject(projectId, project);
               

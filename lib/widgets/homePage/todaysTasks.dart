@@ -90,7 +90,7 @@ class todaysTasks extends StatelessWidget {
                         leading: Checkbox(
                           value: task.isCompleted,
                           onChanged: (checked) {
-                            onTaskCompleted(taskManager, task, checked, context);
+                            onTaskCompleted(task, checked, context);
                           },
                         ),
                         title: Text(

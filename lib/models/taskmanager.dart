@@ -8,6 +8,7 @@ class TaskManager extends ChangeNotifier {
 
   // Add a task
   void addTask(int id, Task task) {
+    print('addTask called: id=$id, isCompleted=${task.isCompleted}, isStarted=${task.isStarted}, status=${task.status}');
     _taskBox.put(id, task);
     notifyListeners();
   }
@@ -33,8 +34,10 @@ class TaskManager extends ChangeNotifier {
   }
 
   void startTask(Task task) {
-    task.isStarted = true;
-    task.updateStatus();
+    final id = task.id;
+    final updatedTask = task.copyWith(isStarted: true);
+    updatedTask.updateStatus();
+    _taskBox.put(id, updatedTask); // Save the updated task to Hive
     notifyListeners();
   }
 }

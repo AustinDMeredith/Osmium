@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'projectSummaryPage.dart';
 import 'activityPage.dart';
+import 'tasksPage.dart';
 import '../models/project.dart';
 import '../widgets/projectPage/projectAppBar.dart';
 
@@ -47,7 +48,7 @@ class _ViewprojectpageState extends State<Viewprojectpage> {
     if (_currentPage == 'summary') {
       return ProjectSummaryPage(project: widget.project);
     } else if (_currentPage == 'tasks') {
-      return Center(child: Text('Tasks Page'));
+      return TasksPage(projectId: widget.project.mapId);
     } else if (_currentPage == 'milestones') {
       return Center(child: Text('Milestones Page'));
     } else if (_currentPage == 'activity') {

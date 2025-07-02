@@ -11,13 +11,10 @@ class TasksOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Filter out completed tasks
-    final activeTasks = tasks.where((t) => t.isCompleted == false).toList();
-
-    int late = activeTasks.where((t) => t.status == 'late').length;
-    int started = activeTasks.where((t) => t.status == 'started').length;
-    int today = activeTasks.where((t) => t.status == 'today').length;
-    int upcoming = activeTasks.where((t) => t.status == 'upcoming').length;
+    int late = tasks.where((t) => t.status == 'late').length;
+    int started = tasks.where((t) => t.status == 'started').length;
+    int today = tasks.where((t) => t.status == 'today').length;
+    int upcoming = tasks.where((t) => t.status == 'upcoming').length;
 
     // If all are zero, show a single gray section
     final bool allZero = late + started + today + upcoming == 0;

@@ -28,41 +28,49 @@ class Task {
   @HiveField(7)
   int parentId;
 
+  @HiveField(8)
+  int id;
+
   Task({
     required this.name,
     required this.deadline,
+    this.isCompleted = false,
+    this.status = 'upcoming',
     required this.progressWeight,
     this.isStarted = false,
     this.isOf = 'null',
     this.parentId = -1,
-    this.isCompleted = false,
-    this.status = 'upcoming',
+    required this.id,
   });
 
   Task copyWith({
     String? name,
     DateTime? deadline,
     bool? isCompleted,
-    bool? isStarted,
     String? status,
     double? progressWeight,
+    bool? isStarted,
     String? isOf,
+    int? parentId,
+    int? id,
     // Add other fields as needed
   }) {
     return Task(
       name: name ?? this.name,
       deadline: deadline ?? this.deadline,
       isCompleted: isCompleted ?? this.isCompleted,
-      isStarted: isStarted ?? this.isStarted,
       status: status ?? this.status,
       progressWeight: progressWeight ?? this.progressWeight,
-
+      isStarted: isStarted ?? this.isStarted,
+      isOf: isOf ?? this.isOf,
+      parentId: parentId ?? this.parentId,
+      id: id ?? this.id,
       // Add other fields as needed
     );
   }
 
   void updateStatus() {
-    if (isCompleted) {
+    if (isCompleted == true) {
       status = 'completed';
     } else if (deadline != null) {
       final now = DateTime.now();

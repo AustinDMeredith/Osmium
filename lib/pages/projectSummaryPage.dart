@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/project.dart';
+import '../models/taskmanager.dart';
 import '../widgets/multiUse/progressBar.dart';
 import '../widgets/multiUse/tasksOverview.dart';
 import '../widgets/multiUse/activityGraph.dart';
@@ -37,7 +39,16 @@ class ProjectSummaryPage extends StatelessWidget {
                       Expanded(flex: 3, 
                         child: Padding(
                           padding: const EdgeInsets.only(top: 8, right: 8, bottom: 8, left: 16),
-                          child: TasksOverview(tasks: project.tasks),
+                          child: Consumer<TaskManager>(
+                            builder: (context, taskManager, child) {
+                              // Filter tasks by project
+                              final filteredTasks = taskManager.tasks.values.where(
+                              (task) => task.parentId == project.mapId,
+                              ).toList();
+                
+                              return TasksOverview(tasks: filteredTasks);
+                            }
+                          )
                         )
                       )
                     ],
