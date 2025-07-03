@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'projectSummaryPage.dart';
-import 'activityPage.dart';
+import 'activityPageProject.dart';
 import 'tasksPage.dart';
 import '../models/project.dart';
 import '../widgets/projectPage/projectAppBar.dart';

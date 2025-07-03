@@ -21,7 +21,7 @@ class ProjectElementSelect extends StatelessWidget {
     final taskManager = Provider.of<TaskManager>(context, listen: false);
     final projectManager = Provider.of<ProjectManager>(context, listen: false);
     final logManager = Provider.of<ProgressLogManager>(context, listen: false);
-    int projectId = project.mapId;
+    String projectId = project.mapId;
     return PopupMenuButton<String>(
       icon: Icon(Icons.add),
       onSelected: (value) {

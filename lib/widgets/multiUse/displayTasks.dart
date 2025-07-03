@@ -51,6 +51,12 @@ class DisplayTasks extends StatelessWidget {
       );
     }
 
+    tasks.sort((a, b) {
+      final aTime = a.deadline != null ? a.deadline!.hour * 60 + a.deadline!.minute : 0;
+      final bTime = b.deadline != null ? b.deadline!.hour * 60 + b.deadline!.minute : 0;
+      return aTime.compareTo(bTime);
+    });
+
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,

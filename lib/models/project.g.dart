@@ -18,7 +18,7 @@ class ProjectAdapter extends TypeAdapter<Project> {
     };
     return Project(
       name: fields[0] as String,
-      mapId: fields[9] as int,
+      mapId: fields[9] as String,
       description: fields[1] as String,
       targetValue: fields[2] as double,
       currentProgress: fields[3] as double,

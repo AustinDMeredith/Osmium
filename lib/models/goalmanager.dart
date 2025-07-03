@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
+import 'package:uuid/uuid.dart';
 import 'goal.dart';
 
 class GoalManager extends ChangeNotifier {
@@ -7,13 +8,13 @@ class GoalManager extends ChangeNotifier {
   Box<Goal> get _goalBox => Hive.box<Goal>('goals');
 
   // Add a goal
-  void addGoal(int id, Goal goal) {
+  void addGoal(String id, Goal goal) {
     _goalBox.put(id, goal);
     notifyListeners();
   }
 
   // Get a goal by id
-  Goal? getGoal(int id) {
+  Goal? getGoal(String id) {
     return _goalBox.get(id);
   }
 
@@ -21,14 +22,15 @@ class GoalManager extends ChangeNotifier {
   Map<dynamic, Goal> get goals => _goalBox.toMap();
 
   // Remove a goal
-  void removeGoal(int id) {
+  void removeGoal(String id) {
     _goalBox.delete(id);
     notifyListeners();
   }
 
+  final Uuid uuid = Uuid();
   // Get the next available id (simple example)
-  int getNextId() {
-    if (_goalBox.isEmpty) return 0;
-    return _goalBox.keys.cast<int>().reduce((a, b) => a > b ? a : b) + 1;
+  String getNextId() {
+    String id = uuid.v4();
+    return id;
   }
 }

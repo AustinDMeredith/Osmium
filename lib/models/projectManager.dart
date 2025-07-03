@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
+import 'package:uuid/uuid.dart';
 import 'project.dart';
 
 class ProjectManager extends ChangeNotifier {
@@ -7,13 +8,13 @@ class ProjectManager extends ChangeNotifier {
   Box<Project> get _projectBox => Hive.box('projects');
 
   // add a project
-  void addProject(int id, Project project) {
+  void addProject(String id, Project project) {
     _projectBox.put(id, project);
     notifyListeners();
   }
 
   // get a project by id
-  Project? getProject(int id) {
+  Project? getProject(String id) {
     return _projectBox.get(id);
   }
 
@@ -21,14 +22,15 @@ class ProjectManager extends ChangeNotifier {
   Map<dynamic, Project> get projects => _projectBox.toMap();
 
   // remove project by id
-  void removeProject(int id) {
+  void removeProject(String id) {
     _projectBox.delete(id);
     notifyListeners();
   }
 
+  final Uuid uuid = Uuid();
   // get next available id
-  int getNextId() {
-    if(_projectBox.isEmpty) return 0;
-    return _projectBox.keys.cast<int>().reduce((a, b) => a > b ? a : b) + 1;
+  String getNextId() {
+    String id = uuid.v4();
+    return id;
   }
 }

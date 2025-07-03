@@ -4,7 +4,7 @@ import '../models/taskmanager.dart';
 import '../widgets/multiUse/displayTasks.dart';
 
 class TasksPage extends StatelessWidget {
-  final int projectId; // Pass the project ID you want to filter by
+  final String projectId; // Pass the project ID you want to filter by
 
   const TasksPage({
     super.key,

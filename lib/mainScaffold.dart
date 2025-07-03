@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'pages/homepage.dart';
-// import 'pages/goalsearchpage.dart';
+import 'pages/goalsearchpage.dart';
 import 'pages/viewgoalpage.dart';
 import 'pages/projectsearchpage.dart';
 import 'pages/viewprojectpage.dart';
@@ -32,11 +32,11 @@ class _MainScaffoldState extends State<MainScaffold> {
     });
   }
 
-  // void _viewGoal(Goal goal) {
-  //   setState(() {
-  //     _selectedGoal = goal;
-  //   });
-  // }
+  void _viewGoal(Goal goal) {
+    setState(() {
+      _selectedGoal = goal;
+    });
+  }
 
   void _closeGoalDetails() {
     setState(() {
@@ -57,21 +57,22 @@ class _MainScaffoldState extends State<MainScaffold> {
         onTabChange: _setTab,
         onAddGoal: (goalName) {
           final goalManager = Provider.of<GoalManager>(context, listen: false);
-          goalManager.addGoal(goalManager.getNextId(), Goal(name: goalName));
+          String id = goalManager.getNextId();
+          goalManager.addGoal(id, Goal(name: goalName, id: id));
         },
         onAddProject: (projectName) {
           final projectManager = Provider.of<ProjectManager>(context, listen: false);
-          int id = projectManager.getNextId();
+          String id = projectManager.getNextId();
           projectManager.addProject(id, Project(name: projectName, mapId: id));
         },
         onAddTask: (taskName, deadline) {
           final taskManager = Provider.of<TaskManager>(context, listen: false);
           int id = taskManager.getNextId();
-          taskManager.addTask(taskManager.getNextId(), Task(name: taskName, deadline: deadline, progressWeight: 0, id: id));
+          taskManager.addTask(id, Task(name: taskName, deadline: deadline, progressWeight: 0, id: id));
         },
       ),
       Projectsearchpage(onTabChange: _setTab, onViewProject: _viewProject),
-      // GoalSearchPage(onTabChange: _setTab, onViewGoal: _viewGoal),
+      GoalSearchPage(onTabChange: _setTab, onViewGoal: _viewGoal),
       // main pages go here
     ];
 
@@ -91,10 +92,10 @@ class _MainScaffoldState extends State<MainScaffold> {
                 icon: Icon(Icons.bar_chart), 
                 label: Text('Projects')
               ),
-              // NavigationRailDestination(
-              //   icon: Icon(Icons.list),
-              //   label: Text('Goals'),
-              // ),
+              NavigationRailDestination(
+                icon: Icon(Icons.list),
+                label: Text('Goals'),
+              ),
             ],
           ),
           Expanded(
@@ -108,7 +109,7 @@ class _MainScaffoldState extends State<MainScaffold> {
                     },
                   )
                 : _selectedGoal != null
-                    ? GoalDetailsPage(
+                    ? ViewGoalPage(
                         goal: _selectedGoal!,
                         onClose: _closeGoalDetails, // Add this callback to close details
                       )

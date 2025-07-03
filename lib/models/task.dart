@@ -26,7 +26,7 @@ class Task {
   String isOf;
 
   @HiveField(7)
-  int parentId;
+  String parentId;
 
   @HiveField(8)
   int id;
@@ -39,7 +39,7 @@ class Task {
     required this.progressWeight,
     this.isStarted = false,
     this.isOf = 'null',
-    this.parentId = -1,
+    this.parentId = '',
     required this.id,
   });
 
@@ -51,7 +51,7 @@ class Task {
     double? progressWeight,
     bool? isStarted,
     String? isOf,
-    int? parentId,
+    String? parentId,
     int? id,
     // Add other fields as needed
   }) {

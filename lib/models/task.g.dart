@@ -19,13 +19,13 @@ class TaskAdapter extends TypeAdapter<Task> {
     return Task(
       name: fields[0] as String,
       deadline: fields[1] as DateTime?,
-      progressWeight: fields[4] as double,
-      id: fields[8] as int,
-      isStarted: fields[5] as bool,
-      isOf: fields[6] as String,
-      parentId: fields[7] as int,
       isCompleted: fields[2] as bool,
       status: fields[3] as String,
+      progressWeight: fields[4] as double,
+      isStarted: fields[5] as bool,
+      isOf: fields[6] as String,
+      parentId: fields[7] as String,
+      id: fields[8] as int,
     );
   }
 

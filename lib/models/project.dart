@@ -35,7 +35,7 @@ class Project {
   List<Task> tasks;
 
   @HiveField(9)
-  int mapId;
+  String mapId;
 
   Project({
     required this.name,

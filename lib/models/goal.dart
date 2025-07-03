@@ -30,8 +30,12 @@ class Goal {
   @HiveField(7)
   List<Task> tasks;
 
+  @HiveField(8)
+  String id;
+
   Goal({
     required this.name,
+    required this.id,
     this.description = 'Add a description',
     this.targetValue = 0,
     this.currentProgress = 0,

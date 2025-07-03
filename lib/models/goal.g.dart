@@ -18,6 +18,7 @@ class GoalAdapter extends TypeAdapter<Goal> {
     };
     return Goal(
       name: fields[0] as String,
+      id: fields[8] as String,
       description: fields[1] as String,
       targetValue: fields[2] as double,
       currentProgress: fields[3] as double,
@@ -30,7 +31,7 @@ class GoalAdapter extends TypeAdapter<Goal> {
   @override
   void write(BinaryWriter writer, Goal obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -46,7 +47,9 @@ class GoalAdapter extends TypeAdapter<Goal> {
       ..writeByte(6)
       ..write(obj.progressLogs)
       ..writeByte(7)
-      ..write(obj.tasks);
+      ..write(obj.tasks)
+      ..writeByte(8)
+      ..write(obj.id);
   }
 
   @override
