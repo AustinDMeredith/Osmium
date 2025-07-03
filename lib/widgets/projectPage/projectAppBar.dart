@@ -4,7 +4,7 @@ import '../multiUse/delete.dart';
 import '../multiUse/viewTasksBtn.dart';
 import '../multiUse/activityBtn.dart';
 import '../multiUse/viewSummaryBtn.dart';
-import 'projectSettings.dart';
+import '../multiUse/settings.dart';
 import 'viewMilestonesBtn.dart';
 import 'elementSelectProject.dart';
 
@@ -48,7 +48,7 @@ class ProjectAppBar extends StatelessWidget implements PreferredSizeWidget {
         ActivityBtn(onPressed: onViewActivity),
         ProjectElementSelect(project: project),
         delete(),
-        projectSettings()
+        Settings()
       ],
     );
   }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../models/goal.dart';
+import 'goalSummaryPage.dart';
 import 'activityPageGoal.dart';
-import '../pages/tasksPage.dart';
+import 'tasksPage.dart';
+import '../models/goal.dart';
 import '../widgets/goalPage/goalAppBar.dart';
 
 
@@ -44,7 +45,7 @@ class _ViewGoalPageState extends State<ViewGoalPage> {
 
   Widget _buildBody() {
     if (_currentPage == 'summary') {
-      return Center(child: Text('Summary Page'));
+      return GoalSummaryPage(goal: widget.goal);
     } else if (_currentPage == 'tasks') {
       return TasksPage(projectId: widget.goal.id);
     } else if (_currentPage == 'activity') {

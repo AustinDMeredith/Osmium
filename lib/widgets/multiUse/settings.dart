@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class projectSettings extends StatelessWidget {
-  const projectSettings({
+class Settings extends StatelessWidget {
+  const Settings({
     super.key,
   });
 

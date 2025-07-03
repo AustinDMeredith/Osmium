@@ -21,8 +21,6 @@ void onTaskCompleted(task, bool? checked, BuildContext context) {
     // finding the project associated with the task
     Project? project = projects[task.parentId];
     if (project != null) {
-
-
       // updates overall project progress
       project.currentProgress += task.progressWeight;
       // creates a progresslog for task in project
@@ -30,27 +28,19 @@ void onTaskCompleted(task, bool? checked, BuildContext context) {
       project.logs.add(Progresslog(name: 'Task - $name', progressMade: task.progressWeight));
       // Save the updated project back to the manager/box if needed
       Provider.of<ProjectManager>(context, listen: false).addProject(task.parentId, project);
-      
     }
   } else if (task.isOf == 'goal') {
     final goals = Provider.of<GoalManager>(context, listen: false).goals;
     // finding the goal associated with the task
     Goal? goal = goals[task.parentId];
     if(goal != null) {
-      final idx = goal.tasks.indexWhere((t) => t.name == task.name);
-      if (idx != -1) {
-        // updates task as completed in goal
-        goal.tasks[idx] = task.copyWith(isCompleted: checked ?? true);
-        task.updateStatus();
-        // updates overall goal progress
-        goal.currentProgress += task.progressWeight;
-        // creates a progresslog for task in goal
-        String name = task.name;
-        goal.progressLogs.add(Progresslog(name: 'Task - $name', progressMade: task.progressWeight));
-        
-        // Save the updated goal back to the manager/box if needed
-        Provider.of<GoalManager>(context, listen: false).addGoal(task.parentId, goal);
-      }
+      // updates overall goal progress
+      goal.currentProgress += task.progressWeight;
+      // creates a progresslog for task in goal
+      String name = task.name;
+      goal.progressLogs.add(Progresslog(name: 'Task - $name', progressMade: task.progressWeight));
+      // Save the updated goal back to the manager/box if needed
+      Provider.of<GoalManager>(context, listen: false).addGoal(task.parentId, goal);
     }
   }
 }

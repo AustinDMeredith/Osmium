@@ -4,6 +4,8 @@ import '../multiUse/viewSummaryBtn.dart';
 import '../multiUse/viewTasksBtn.dart';
 import '../multiUse/activityBtn.dart';
 import '../multiUse/delete.dart';
+import '../multiUse/settings.dart';
+import '../goalPage/elementSelectGoal.dart';
 
 class GoalAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Goal goal;
@@ -40,7 +42,9 @@ class GoalAppBar extends StatelessWidget implements PreferredSizeWidget {
         SummaryBtn(onPressed: onViewSummary),
         Tasks(onPressed:  onViewTasks),
         ActivityBtn(onPressed: onViewActivity),
+        GoalElementSelect(goal: goal),
         delete(),
+        Settings()
       ],
     );
   }
