@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/project.dart';
+import '../models/projectManager.dart';
 import '../models/taskmanager.dart';
+import '../models/ProgressLogManager.dart';
 import '../widgets/multiUse/progressBar.dart';
 import '../widgets/multiUse/tasksOverview.dart';
 import '../widgets/multiUse/activityGraph.dart';
@@ -31,7 +33,15 @@ class ProjectSummaryPage extends StatelessWidget {
                       Expanded(flex: 1, 
                         child: Padding(
                           padding: const EdgeInsets.only(right: 8, bottom: 8, left: 16, top: 16),
-                          child: ProgressBar(progress: project.currentProgress),
+                          child: Consumer<ProjectManager>(
+                            builder: (context, projectManager, child) {
+                              final thisProject = projectManager.getProject(project.mapId);
+                              if(thisProject == null){
+                                return const SizedBox();
+                              }
+                              return ProgressBar(progress: thisProject.currentProgress);
+                            }
+                          ),
                         )
                       ),
                   
@@ -60,7 +70,14 @@ class ProjectSummaryPage extends StatelessWidget {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(top: 16, right: 16, left: 8, bottom: 8),
-                          child: ActivityGraph(logs: project.logs),
+                           child: Consumer<ProgressLogManager>(
+                            builder: (context, logManager, child) {
+                              final filteredLogs = logManager.logs.values.where(
+                                (log) => log.parentId == project.mapId
+                              ).toList();
+                              return ActivityGraph(logs: filteredLogs);
+                            }
+                          ),
                         ),
                       )
                     ],
@@ -74,7 +91,7 @@ class ProjectSummaryPage extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(top: 8, right: 16, left: 16, bottom: 16),
-              child: MilestonesOverview(milestones: project.goals),
+              child: MilestonesOverview(),
             ),
           )
         ],

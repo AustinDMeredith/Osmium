@@ -1,7 +1,5 @@
 import 'dart:core';
 import 'package:hive/hive.dart';
-import '../models/task.dart';
-import '../models/progresslog.dart';
 part 'goal.g.dart';
 
 @HiveType(typeId: 0)
@@ -23,14 +21,8 @@ class Goal {
 
   @HiveField(5)
   bool isCompleted;
-  
+
   @HiveField(6)
-  List<Progresslog> progressLogs;
-
-  @HiveField(7)
-  List<Task> tasks;
-
-  @HiveField(8)
   String id;
 
   Goal({
@@ -40,7 +32,5 @@ class Goal {
     this.targetValue = 0,
     this.currentProgress = 0,
     this.isCompleted = false,
-    List<Progresslog>? progressLogs,
-    List<Task>? tasks
-  }) : progressLogs = progressLogs ?? [], tasks = tasks ?? [];
+  });
 }

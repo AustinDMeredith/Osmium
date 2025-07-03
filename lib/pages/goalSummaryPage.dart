@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/goalmanager.dart';
 import '../models/goal.dart';
 import '../models/taskmanager.dart';
+import '../models/ProgressLogManager.dart';
 import '../widgets/multiUse/progressBar.dart';
 import '../widgets/multiUse/tasksOverview.dart';
 import '../widgets/multiUse/activityGraph.dart';
@@ -28,7 +30,15 @@ class GoalSummaryPage extends StatelessWidget {
                       Expanded(flex: 1, 
                         child: Padding(
                           padding: const EdgeInsets.only(right: 8, bottom: 8, left: 16, top: 16),
-                          child: ProgressBar(progress: goal.currentProgress),
+                          child: Consumer<GoalManager>(
+                            builder: (context, goalManager, child) {
+                              final thisGoal = goalManager.getGoal(goal.id);
+                              if(thisGoal == null){
+                                return const SizedBox();
+                              }
+                              return ProgressBar(progress: thisGoal.currentProgress);
+                            }
+                          ),
                         )
                       ),
 
@@ -59,7 +69,14 @@ class GoalSummaryPage extends StatelessWidget {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(top: 16, right: 16, left: 8, bottom: 8),
-                          child: ActivityGraph(logs: goal.progressLogs),
+                          child: Consumer<ProgressLogManager>(
+                            builder: (context, logManager, child) {
+                              final filteredLogs = logManager.logs.values.where(
+                                (log) => log.parentId == goal.id
+                              ).toList();
+                              return ActivityGraph(logs: filteredLogs);
+                            }
+                          ),
                         ),
                       )
                     ],

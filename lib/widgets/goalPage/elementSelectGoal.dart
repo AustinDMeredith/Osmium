@@ -43,19 +43,17 @@ class GoalElementSelect extends StatelessWidget {
               final newLog = Progresslog(
                 name: title,
                 progressMade: value,
+                id: logManager.getNextId(),
+                isOf: 'goal',
+                parentId: goalId
               );
               
               newLog.description = description;
               final logId = logManager.getNextId();
               logManager.addLog(logId, newLog);
-
-              // Retrieve the saved log from Hive
-              final savedLog = logManager.getLog(logId);
-              if (savedLog != null) {
-                goal.progressLogs.add(savedLog);
-                goal.currentProgress += value;
-                goalManager.addGoal(goalId, goal);
-              }
+              goal.currentProgress += value;
+              goalManager.addGoal(goalId, goal);
+              
             },
             initialValue: 0, // optional
             maxValue: 100,   // optional

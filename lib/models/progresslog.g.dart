@@ -19,6 +19,9 @@ class ProgresslogAdapter extends TypeAdapter<Progresslog> {
     return Progresslog(
       name: fields[0] as String,
       progressMade: fields[2] as double,
+      id: fields[6] as int,
+      isOf: fields[4] as String,
+      parentId: fields[5] as String,
       description: fields[1] as String,
       time: fields[3] as DateTime?,
     );
@@ -27,7 +30,7 @@ class ProgresslogAdapter extends TypeAdapter<Progresslog> {
   @override
   void write(BinaryWriter writer, Progresslog obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -35,7 +38,13 @@ class ProgresslogAdapter extends TypeAdapter<Progresslog> {
       ..writeByte(2)
       ..write(obj.progressMade)
       ..writeByte(3)
-      ..write(obj.time);
+      ..write(obj.time)
+      ..writeByte(4)
+      ..write(obj.isOf)
+      ..writeByte(5)
+      ..write(obj.parentId)
+      ..writeByte(6)
+      ..write(obj.id);
   }
 
   @override

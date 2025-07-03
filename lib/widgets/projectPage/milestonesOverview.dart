@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import '../../models/goal.dart';
 
 class MilestonesOverview extends StatelessWidget {
-  final List<Goal> milestones;
+  // final List<Goal> milestones;
   const MilestonesOverview({
     super.key,
-    required this.milestones
+    // required this.milestones
     });
 
   @override

@@ -23,16 +23,13 @@ class ProjectAdapter extends TypeAdapter<Project> {
       targetValue: fields[2] as double,
       currentProgress: fields[3] as double,
       isCompleted: fields[5] as bool,
-      logs: (fields[7] as List?)?.cast<Progresslog>(),
-      tasks: (fields[8] as List?)?.cast<Task>(),
-      goals: (fields[6] as List?)?.cast<Goal>(),
     )..deadline = fields[4] as DateTime?;
   }
 
   @override
   void write(BinaryWriter writer, Project obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -45,12 +42,6 @@ class ProjectAdapter extends TypeAdapter<Project> {
       ..write(obj.deadline)
       ..writeByte(5)
       ..write(obj.isCompleted)
-      ..writeByte(6)
-      ..write(obj.goals)
-      ..writeByte(7)
-      ..write(obj.logs)
-      ..writeByte(8)
-      ..write(obj.tasks)
       ..writeByte(9)
       ..write(obj.mapId);
   }

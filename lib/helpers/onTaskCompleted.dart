@@ -6,9 +6,11 @@ import '../models/goal.dart';
 import '../models/goalmanager.dart';
 import '../models/taskmanager.dart';
 import '../models/progresslog.dart';
+import '../models/ProgressLogManager.dart';
 
 void onTaskCompleted(task, bool? checked, BuildContext context) {
   final taskManager = Provider.of<TaskManager>(context, listen: false);
+  final logs = Provider.of<ProgressLogManager>(context, listen: false);
   final taskId = task.id;
   // updates task as completed in manager
   task.isCompleted = true;
@@ -25,9 +27,11 @@ void onTaskCompleted(task, bool? checked, BuildContext context) {
       project.currentProgress += task.progressWeight;
       // creates a progresslog for task in project
       String name = task.name;
-      project.logs.add(Progresslog(name: 'Task - $name', progressMade: task.progressWeight));
+      int id = logs.getNextId();
+      Progresslog newLog = Progresslog(name: 'Task - $name', progressMade: task.progressWeight, id: id, isOf: 'project', parentId: task.parentId);
       // Save the updated project back to the manager/box if needed
       Provider.of<ProjectManager>(context, listen: false).addProject(task.parentId, project);
+      logs.addLog(id, newLog);
     }
   } else if (task.isOf == 'goal') {
     final goals = Provider.of<GoalManager>(context, listen: false).goals;
@@ -38,9 +42,11 @@ void onTaskCompleted(task, bool? checked, BuildContext context) {
       goal.currentProgress += task.progressWeight;
       // creates a progresslog for task in goal
       String name = task.name;
-      goal.progressLogs.add(Progresslog(name: 'Task - $name', progressMade: task.progressWeight));
+      int id = logs.getNextId();
+      Progresslog newLog = Progresslog(name: 'Task - $name', progressMade: task.progressWeight, id: id, isOf: 'goal', parentId: task.parentId);
       // Save the updated goal back to the manager/box if needed
       Provider.of<GoalManager>(context, listen: false).addGoal(task.parentId, goal);
+      logs.addLog(id, newLog);
     }
   }
 }

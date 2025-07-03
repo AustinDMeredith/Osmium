@@ -33,9 +33,7 @@ class ProjectElementSelect extends StatelessWidget {
               final newTask = Task(name: name, deadline: deadline, progressWeight: weight, isOf: 'project', parentId: projectId, id: id);
               newTask.updateStatus();
               taskManager.addTask(id, newTask);
-              project.tasks.add(newTask);
               projectManager.addProject(projectId, project);
-              
             });
         } else if (value == 'milestone') {
           // Add milestone logic
@@ -47,19 +45,17 @@ class ProjectElementSelect extends StatelessWidget {
               final newLog = Progresslog(
                 name: title,
                 progressMade: value,
+                id: logManager.getNextId(),
+                isOf: 'project',
+                parentId: projectId
               );
               
               newLog.description = description;
               final logId = logManager.getNextId();
               logManager.addLog(logId, newLog);
-
-              // Retrieve the saved log from Hive
-              final savedLog = logManager.getLog(logId);
-              if (savedLog != null) {
-                project.logs.add(savedLog);
-                project.currentProgress += value;
-                projectManager.addProject(projectId, project);
-              }
+              project.currentProgress += value;
+              projectManager.addProject(projectId, project);
+              
             },
             initialValue: 0, // optional
             maxValue: 100,   // optional
