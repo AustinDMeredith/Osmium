@@ -39,4 +39,11 @@ class TaskManager extends ChangeNotifier {
     _taskBox.put(id, updatedTask); // Save the updated task to Hive
     notifyListeners();
   }
+
+  void updateAllTaskStatuses() {
+    for (var task in tasks.values) {
+      task.updateStatus();
+    }
+    notifyListeners();
+  }
 }

@@ -16,6 +16,11 @@ class DisplayTasks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    for (var task in tasks) {
+      task.updateStatus();
+    }
+
     if (tasks.isEmpty) {
       return Container(
         decoration: BoxDecoration(

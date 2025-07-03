@@ -11,6 +11,10 @@ class TasksOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    for (var task in tasks) {
+      task.updateStatus();
+    }
+    
     int late = tasks.where((t) => t.status == 'late').length;
     int started = tasks.where((t) => t.status == 'started').length;
     int today = tasks.where((t) => t.status == 'today').length;

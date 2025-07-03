@@ -21,7 +21,7 @@ void main() async {
   Hive.registerAdapter(ProjectAdapter());
 
   // uncomment and change name to box you want to delete. for debugging only.
-  // await Hive.deleteBoxFromDisk('tasks');
+  // await Hive.deleteBoxFromDisk('progresslogs');
 
   // open boxes
   await Hive.openBox<Goal>('goals');
@@ -40,6 +40,7 @@ void main() async {
       child: MyApp(),
     ),
   );
+  
 }
 
 class MyApp extends StatelessWidget {
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  
     return MaterialApp(
       theme: ThemeData(
         colorScheme: const ColorScheme(

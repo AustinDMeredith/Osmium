@@ -17,12 +17,14 @@ class MainScaffold extends StatefulWidget {
 
   @override
   State<MainScaffold> createState() => _MainScaffoldState();
+  
 }
 
 class _MainScaffoldState extends State<MainScaffold> {
   int _selectedIndex = 0;
   Goal? _selectedGoal;
   Project? _selectedProject;
+  
   
   void _setTab(int index) {
     setState(() {
@@ -49,6 +51,14 @@ class _MainScaffoldState extends State<MainScaffold> {
       _selectedProject = project;
     });
   }
+
+  @override
+  void initState() {
+  super.initState();
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    Provider.of<TaskManager>(context, listen: false).updateAllTaskStatuses();
+  });
+}
 
   @override
   Widget build(BuildContext context) {
