@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../models/ProgressLogManager.dart';
 import '../widgets/homePage/addProjectBtn.dart';
 import '../widgets/homePage/addGoalBtn.dart';
 import '../widgets/homePage/addTaskBtn.dart';
@@ -43,7 +45,18 @@ class Homepage extends StatelessWidget {
                   ), 
               
                   // weekly progress graph
-                  weeklyProgressGraph(),
+
+                  Consumer<ProgressLogManager>(
+                    builder: (context, logManager, child) {
+                      final now = DateTime.now();
+                      final oneWeekAgo = now.subtract(const Duration(days: 7));
+                      final filteredLogs = logManager.logs.values.where(
+                        (log) => log.time.isAfter(oneWeekAgo.subtract(const Duration(seconds: 1))) && log.time.isBefore(now)
+                      ).toList();
+                      return weeklyProgressGraph(logs: filteredLogs);
+                    }
+                  ),
+                  
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

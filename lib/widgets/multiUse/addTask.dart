@@ -42,7 +42,7 @@ void showTaskDialog(BuildContext context, {void Function(String name, DateTime? 
                     TextFormField(
                       decoration: InputDecoration(labelText: 'Progress Weight'),
                       keyboardType: TextInputType.numberWithOptions(decimal: true),
-                      initialValue: '1.0',
+                      initialValue: '1',
                       validator: (value) {
                         if (value == null || value.isEmpty) return 'Enter a weight';
                         final num? parsed = num.tryParse(value);

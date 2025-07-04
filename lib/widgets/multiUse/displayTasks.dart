@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import '../../models/task.dart';
 import '../../models/taskmanager.dart';
-import '../../helpers/onTaskCompleted.dart';
+import '../../eventHandlers/onTaskCompleted.dart';
 
 class DisplayTasks extends StatelessWidget {
   final List<Task> tasks;
@@ -98,13 +98,25 @@ class DisplayTasks extends StatelessWidget {
                     },
                   ),
                   title: Text('$timeString - $name'),
-                  trailing: TextButton(
-                    onPressed: task.isStarted
-                    ? null
-                    : () {
-                        Provider.of<TaskManager>(context, listen: false).startTask(task);
-                      },
-                    child: Text(task.isStarted ? 'Started' : 'Start'),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextButton(
+                        onPressed: task.isStarted
+                        ? null
+                        : () {
+                            Provider.of<TaskManager>(context, listen: false).startTask(task);
+                          },
+                        child: Text(task.isStarted ? 'Started' : 'Start'),
+                      ),
+                      IconButton(onPressed: () {
+                        if (task.isCompleted) {
+                          // make it so if the task is completed, the progress gets removed from the parent.
+                        }
+                        Provider.of<TaskManager>(context, listen: false).removeTask(task.id);
+                      }, 
+                      icon: Icon(Icons.delete))
+                    ],
                   ),
                 );
               },

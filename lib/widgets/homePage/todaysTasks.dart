@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import '../../models/taskmanager.dart';
-import '../../helpers/onTaskCompleted.dart';
+import '../../eventHandlers/onTaskCompleted.dart';
 
 class todaysTasks extends StatelessWidget {
   const todaysTasks({

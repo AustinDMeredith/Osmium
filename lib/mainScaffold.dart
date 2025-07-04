@@ -54,11 +54,11 @@ class _MainScaffoldState extends State<MainScaffold> {
 
   @override
   void initState() {
-  super.initState();
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    Provider.of<TaskManager>(context, listen: false).updateAllTaskStatuses();
-  });
-}
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<TaskManager>(context, listen: false).updateAllTaskStatuses();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
