@@ -11,6 +11,10 @@ class ProgressLogs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Sort logs by newest first
+    final sortedLogs = List<Progresslog>.from(logs)
+      ..sort((a, b) => b.time.compareTo(a.time));
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -29,7 +33,7 @@ class ProgressLogs extends StatelessWidget {
               ),
             ),
           ),
-          logs.isEmpty
+          sortedLogs.isEmpty
               ? const Padding(
                   padding: EdgeInsets.all(24.0),
                   child: Center(child: Text('No progress logs yet.')),
@@ -38,9 +42,9 @@ class ProgressLogs extends StatelessWidget {
                 child: ListView.builder(
                     shrinkWrap: true,
                     padding: const EdgeInsets.all(16),
-                    itemCount: logs.length,
+                    itemCount: sortedLogs.length,
                     itemBuilder: (context, index) {
-                      final log = logs[index];
+                      final log = sortedLogs[index];
                       return Container(
                         margin: const EdgeInsets.only(bottom: 12),
                         decoration: BoxDecoration(

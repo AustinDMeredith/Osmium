@@ -16,10 +16,13 @@ class ActivityGraph extends StatelessWidget {
       ..sort((a, b) => a.time.compareTo(b.time));
 
     // Convert logs to FlSpot points (x: index, y: progress)
-    final spots = [
-      for (int i = 0; i < sortedLogs.length; i++)
-        FlSpot(i.toDouble(), sortedLogs[i].progressMade.toDouble())
-    ];
+    double overallProgress = 0;
+    final List<FlSpot> spots = [FlSpot(0, 0)];
+      for (int i = 0; i < sortedLogs.length; i++) {
+        overallProgress += sortedLogs[i].progressMade.toDouble();
+        spots.add(FlSpot((i + 1).toDouble(), overallProgress));
+      }
+
 
     return Container(
       width: double.infinity,
@@ -39,20 +42,22 @@ class ActivityGraph extends StatelessWidget {
               ),
             ),
           ),
-        
-          // further implementation will go here
+          
+          // widget logic
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(right: 30, left: 8, top: 8, bottom: 8),
               child: LineChart(
                 LineChartData(
+                  minY: 0,
+                  maxY: 100,
                   lineBarsData: [
                     LineChartBarData(
                       spots: spots,
                       isCurved: false,
                       color: Colors.blue,
                       barWidth: 3,
-                      dotData: FlDotData(show: false),
+                      dotData: FlDotData(show: true),
                     ),
                   ],
                   titlesData: FlTitlesData(
@@ -68,7 +73,18 @@ class ActivityGraph extends StatelessWidget {
                         },
                       ),
                     ), 
-                    leftTitles: AxisTitles(sideTitles: SideTitles(reservedSize: 30, showTitles: true)),
+                    leftTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        reservedSize: 30,
+                        showTitles: true,
+                        getTitlesWidget: (value, meta) {
+                          if (value % 1 == 0) {
+                            return Text(value.toInt().toString());
+                          }
+                          return const SizedBox.shrink();
+                        },
+                      ),
+                    ), 
                     rightTitles: AxisTitles(sideTitles: SideTitles(reservedSize: 30, showTitles: false)),
                     topTitles: AxisTitles(sideTitles: SideTitles(reservedSize: 30, showTitles: false))
                   ),

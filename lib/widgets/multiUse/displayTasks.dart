@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../../models/task.dart';
 import '../../models/taskmanager.dart';
 import '../../eventHandlers/onTaskCompleted.dart';
+import '../../eventHandlers/onTaskDeleted.dart';
 
 class DisplayTasks extends StatelessWidget {
   final List<Task> tasks;
@@ -94,7 +95,7 @@ class DisplayTasks extends StatelessWidget {
                   leading: Checkbox(
                     value: task.isCompleted,
                     onChanged: (checked) {
-                      onTaskCompleted(task, checked, context);
+                      onTaskCompleted(task, context);
                     },
                   ),
                   title: Text('$timeString - $name'),
@@ -109,11 +110,10 @@ class DisplayTasks extends StatelessWidget {
                           },
                         child: Text(task.isStarted ? 'Started' : 'Start'),
                       ),
+
+                      // delete button on task
                       IconButton(onPressed: () {
-                        if (task.isCompleted) {
-                          // make it so if the task is completed, the progress gets removed from the parent.
-                        }
-                        Provider.of<TaskManager>(context, listen: false).removeTask(task.id);
+                        onTaskDelete(task, context);
                       }, 
                       icon: Icon(Icons.delete))
                     ],
@@ -126,4 +126,6 @@ class DisplayTasks extends StatelessWidget {
       ),
     );
   }
+
+  
 }

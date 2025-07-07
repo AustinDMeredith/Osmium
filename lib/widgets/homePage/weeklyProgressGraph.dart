@@ -14,7 +14,11 @@ class weeklyProgressGraph extends StatelessWidget {
   Widget build(BuildContext context) {
     // Prepare data: sum progress for each day of the past week
     final now = DateTime.now();
-    final days = List.generate(7, (i) => now.subtract(Duration(days: 6 - i)));
+    // Find the most recent Monday
+    final int daysSinceMonday = (now.weekday + 6) % 7;
+    final monday = now.subtract(Duration(days: daysSinceMonday));
+    // Generate the week starting from Monday
+    final days = List.generate(7, (i) => monday.add(Duration(days: i)));
     final progressPerDay = List<double>.filled(7, 0);
 
     for (var log in logs) {
