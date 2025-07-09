@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:osmium_flutter/pages/milestonesPage.dart';
 import 'projectSummaryPage.dart';
 import 'activityPageProject.dart';
 import 'tasksPage.dart';
@@ -50,7 +51,7 @@ class _ViewprojectpageState extends State<Viewprojectpage> {
     } else if (_currentPage == 'tasks') {
       return TasksPage(projectId: widget.project.mapId);
     } else if (_currentPage == 'milestones') {
-      return Center(child: Text('Milestones Page'));
+      return MilestonesPage(project: widget.project);
     } else if (_currentPage == 'activity') {
       return ActivityPage(project: widget.project);
     }

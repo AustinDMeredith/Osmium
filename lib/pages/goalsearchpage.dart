@@ -26,7 +26,7 @@ class _GoalDetailsPageState extends State<GoalSearchPage> {
     final goals = Provider.of<GoalManager>(context).goals;
     final filteredGoals = goals.entries.where((entry) {
       final goal = entry.value;
-      return goal.name.toLowerCase().contains(_searchText.toLowerCase());
+      return goal.parentId == 'null' && goal.name.toLowerCase().contains(_searchText.toLowerCase());
     }).toList();
 
     return Scaffold(

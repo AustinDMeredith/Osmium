@@ -25,6 +25,9 @@ class Goal {
   @HiveField(6)
   String id;
 
+  @HiveField(7)
+  String parentId;
+
   Goal({
     required this.name,
     required this.id,
@@ -32,5 +35,6 @@ class Goal {
     this.targetValue = 0,
     this.currentProgress = 0,
     this.isCompleted = false,
+    this.parentId = 'null'
   });
 }

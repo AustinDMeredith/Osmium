@@ -5,12 +5,12 @@ import 'pages/goalsearchpage.dart';
 import 'pages/viewgoalpage.dart';
 import 'pages/projectsearchpage.dart';
 import 'pages/viewprojectpage.dart';
-import 'models/goalmanager.dart';
 import 'models/goal.dart';
 import 'models/taskmanager.dart';
-import 'models/task.dart';
-import 'models/projectManager.dart';
 import 'models/project.dart';
+import 'eventHandlers/onTaskCreated.dart';
+import 'eventHandlers/onGoalCreated.dart';
+import 'eventHandlers/onProjectCreated.dart';
 
 class MainScaffold extends StatefulWidget {
   const MainScaffold({super.key});
@@ -66,19 +66,18 @@ class _MainScaffoldState extends State<MainScaffold> {
       Homepage(
         onTabChange: _setTab,
         onAddGoal: (goalName) {
-          final goalManager = Provider.of<GoalManager>(context, listen: false);
-          String id = goalManager.getNextId();
-          goalManager.addGoal(id, Goal(name: goalName, id: id));
+          String description = 'Add a description';
+          String parentId = 'null';
+          onGoalCreated(goalName, description, parentId, context);
         },
         onAddProject: (projectName) {
-          final projectManager = Provider.of<ProjectManager>(context, listen: false);
-          String id = projectManager.getNextId();
-          projectManager.addProject(id, Project(name: projectName, mapId: id));
+          onProjectCreated(context, projectName);
         },
         onAddTask: (taskName, deadline) {
-          final taskManager = Provider.of<TaskManager>(context, listen: false);
-          int id = taskManager.getNextId();
-          taskManager.addTask(id, Task(name: taskName, deadline: deadline, progressWeight: 0, id: id));
+          double weight = 0;
+          String parentId = 'null';
+          String isOf = 'null';
+          onTaskCreated(taskName, deadline, weight, parentId, context, isOf);
         },
       ),
       Projectsearchpage(onTabChange: _setTab, onViewProject: _viewProject),
