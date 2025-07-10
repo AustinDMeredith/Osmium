@@ -23,4 +23,5 @@ void onGoalDelete (Goal goal, BuildContext context) {
   }
   // remove goal
   Provider.of<GoalManager>(context, listen: false).removeGoal(goal.id);
+  
 }
