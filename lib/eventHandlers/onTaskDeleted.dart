@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:osmium_flutter/models/goal.dart';
 import 'package:provider/provider.dart';
 import '../../models/goalmanager.dart';
+import '../../models/goal.dart';
 import '../../models/task.dart';
 import '../../models/taskmanager.dart';
 import '../../models/ProgressLogManager.dart';
