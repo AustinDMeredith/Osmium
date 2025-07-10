@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../eventHandlers/onLogDelete.dart';
+import '../../widgets/multiUse/delete.dart';
 import '../../models/progresslog.dart';
 
 class ProgressLogs extends StatelessWidget {
@@ -84,6 +86,7 @@ class ProgressLogs extends StatelessWidget {
                               ),
                             ],
                           ),
+                          trailing: delete(onPressed: () => onLogDelete(log, context)),
                           contentPadding: const EdgeInsets.all(16),
                         ),
                       );

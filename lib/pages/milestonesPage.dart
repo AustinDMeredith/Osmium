@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/project.dart';
-import '../models/goal.dart';
 import '../models/goalmanager.dart';
 import '../models/taskmanager.dart';
 import '../pages/viewgoalpage.dart';
@@ -45,11 +44,7 @@ class MilestonesPage extends StatelessWidget {
                     final tasks = taskManager.tasks.values
                         .where((task) => task.parentId == milestone.id)
                         .toList();
-                    final completedTasks =
-                        tasks.where((task) => task.isCompleted).length;
-                    final completion = tasks.isEmpty
-                        ? 0
-                        : (completedTasks / tasks.length * 100).round();
+                    final completion = milestone.currentProgress;
         
                     return Card(
                       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

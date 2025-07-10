@@ -91,7 +91,7 @@ class ProjectSummaryPage extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(top: 8, right: 16, left: 16, bottom: 16),
-              child: MilestonesOverview(),
+              child: MilestonesOverview(project: project),
             ),
           )
         ],
