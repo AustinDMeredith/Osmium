@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:osmium_flutter/models/goal.dart';
+import 'package:osmium/models/goal.dart';
 import 'package:provider/provider.dart';
 import '../../models/goalmanager.dart';
 import '../../models/task.dart';
