@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../models/project.dart';
 import 'package:provider/provider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../../models/goalmanager.dart';
+import '../../models/project.dart';
 
 class MilestonesOverview extends StatelessWidget {
   final Project project;
