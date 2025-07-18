@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:osmium/pages/milestonesPage.dart';
+import 'milestonesPage.dart';
 import 'projectSummaryPage.dart';
 import 'activityPageProject.dart';
 import 'tasksPage.dart';

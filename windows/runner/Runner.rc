@@ -52,7 +52,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_APP_ICON            ICON                    "resources\\app_icon.ico"
+IDI_APP_ICON ICON "logo.ico"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "osmium_flutter" "\0"
+            VALUE "CompanyName", "Osmium Software" "\0"
+            VALUE "FileDescription", "Osmium - Productivity & Goal Tracking App" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "osmium_flutter" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "osmium_flutter.exe" "\0"
-            VALUE "ProductName", "osmium_flutter" "\0"
+            VALUE "InternalName", "Osmium" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2025 Osmium Software. All rights reserved." "\0"
+            VALUE "OriginalFilename", "Osmium.exe" "\0"
+            VALUE "ProductName", "Osmium" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
