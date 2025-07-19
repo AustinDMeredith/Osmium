@@ -21,7 +21,10 @@ void main() async {
   Hive.registerAdapter(ProjectAdapter());
 
   // uncomment and change name to box you want to delete. for debugging only.
-  // await Hive.deleteBoxFromDisk('projects');
+  await Hive.deleteBoxFromDisk('goals');
+  await Hive.deleteBoxFromDisk('tasks');
+  await Hive.deleteBoxFromDisk('progresslogs');
+  await Hive.deleteBoxFromDisk('projects');
 
   // open boxes
   await Hive.openBox<Goal>('goals');
