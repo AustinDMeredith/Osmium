@@ -8,9 +8,9 @@ import 'pages/viewprojectpage.dart';
 import 'models/goal.dart';
 import 'models/taskmanager.dart';
 import 'models/project.dart';
-import 'eventHandlers/onTaskCreated.dart';
-import 'eventHandlers/onGoalCreated.dart';
-import 'eventHandlers/onProjectCreated.dart';
+import 'events/onTaskCreated.dart';
+import 'events/onGoalCreated.dart';
+import 'events/onProjectCreated.dart';
 
 class MainScaffold extends StatefulWidget {
   const MainScaffold({super.key});

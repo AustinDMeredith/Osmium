@@ -7,7 +7,7 @@ import '../multiUse/viewSummaryBtn.dart';
 // import '../multiUse/settings.dart';
 import 'viewMilestonesBtn.dart';
 import 'elementSelectProject.dart';
-import '../../eventHandlers/onProjectDelete.dart';
+import '../../events/onProjectDelete.dart';
 
 class ProjectAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ProjectAppBar({

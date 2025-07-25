@@ -1,40 +1,55 @@
 import 'dart:core';
-import 'package:hive/hive.dart';
-part 'goal.g.dart';
 
-@HiveType(typeId: 0)
 class Goal {
-  @HiveField(0)
+  String? id;
   String name;
-
-  @HiveField(1)
   String description;
-
-  @HiveField(2)
   double targetValue;
-
-  @HiveField(3)
   double currentProgress;
-
-  @HiveField(4)
-  DateTime? deadline;
-
-  @HiveField(5)
   bool isCompleted;
-
-  @HiveField(6)
-  String id;
-
-  @HiveField(7)
   String parentId;
+  DateTime? deadline;
+  DateTime? createdAt;
 
   Goal({
+    this.id,
     required this.name,
-    required this.id,
     this.description = 'Add a description',
     this.targetValue = 0,
     this.currentProgress = 0,
     this.isCompleted = false,
-    this.parentId = 'null'
+    this.parentId = 'null',
+    this.deadline,
+    this.createdAt
   });
+
+  // Convert from database row
+  factory Goal.fromMap(Map<String, dynamic> map) {
+    return Goal(
+      id: map['id'],
+      name: map['name'],
+      description: map['description'] ?? 'Add a description',
+      targetValue: (map['target_value'] ?? 0).toDouble(),
+      currentProgress: (map['current_progress'] ?? 0).toDouble(),
+      isCompleted: map['is_completed'] ?? false,
+      parentId: map['parent_id'] ?? 'null',
+      deadline: map['deadline'] != null ? DateTime.parse(map['deadline']) : null,
+      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
+    );
+  }
+
+  // Convert to database format
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'target_value': targetValue,
+      'current_progress': currentProgress,
+      'is_completed': isCompleted,
+      'parent_id': parentId,
+      'deadline': deadline?.toIso8601String(),
+      'created_at': createdAt?.toIso8601String(),
+    };
+  }
 }

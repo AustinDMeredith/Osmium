@@ -5,7 +5,6 @@ import '../models/goal.dart';
 
 void onGoalCreated(String name, String description, String parentId, BuildContext context) {
   final goalManager = Provider.of<GoalManager>(context, listen: false);
-  String id = goalManager.getNextId();
-  final newGoal = Goal(name: name, id: id, description: description, parentId: parentId);
-  goalManager.addGoal(id, newGoal);
+  final newGoal = Goal(name: name, description: description, parentId: parentId);
+  goalManager.addGoal(newGoal);
 }

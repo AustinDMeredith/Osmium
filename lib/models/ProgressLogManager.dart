@@ -1,34 +1,50 @@
 import 'package:flutter/foundation.dart';
-import 'package:hive/hive.dart';
-import 'progresslog.dart';
+import '../repositories/progressLog_repository.dart';
+import 'progressLog.dart';
 
 class ProgressLogManager extends ChangeNotifier {
-// Get the box when needed, after it's open in main()
-  Box<Progresslog> get _logBox => Hive.box<Progresslog>('progresslogs');
+  final ProgressLogRepository _repository = ProgressLogRepository();
+  List<ProgressLog> _logs = [];
+  bool _isLoading = false;
 
-  // Add a log
-  void addLog(int id, Progresslog log) {
-    _logBox.put(id, log);
+  List<ProgressLog> get logs => _logs;
+  bool get isLoading => _isLoading;
+
+  Future<void> loadLogs() async {
+    _isLoading = true;
+    notifyListeners();
+    
+    try {
+      _logs = await _repository.getAll();
+    } catch (e) {
+      print('Error leading progressLogs: $e');
+    }
+
+    _isLoading = false;
     notifyListeners();
   }
 
-  // Get a log by id
-  Progresslog? getLog(int id) {
-    return _logBox.get(id);
+  Future<void> addLog(ProgressLog log) async {
+    try {
+      final id = await _repository.create(log);
+      log.id = id;
+      _logs.add(log);
+      notifyListeners();
+    } catch (e) {
+      print('Error adding log $e');
+    }
   }
 
-  // Get all logs as a map
-  Map<dynamic, Progresslog> get logs => _logBox.toMap();
-
-  // Remove a log
-  void removeLog(int id) {
-    _logBox.delete(id);
-    notifyListeners();
-  }
-
-  // Get the next available id (simple example)
-  int getNextId() {
-    if (_logBox.isEmpty) return 0;
-    return _logBox.keys.cast<int>().reduce((a, b) => a > b ? a : b) + 1;
+  Future<void> updateLog(ProgressLog log) async {
+    try {
+      await _repository.update(log);
+      final index = _logs.indexWhere((g) => g.id == log.id);
+      if (index != -1) {
+        _logs[index] = log;
+        notifyListeners();
+      }
+    } catch (e) {
+      print('Error updating goal: $e');
+    }
   }
 }

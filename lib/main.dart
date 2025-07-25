@@ -1,36 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'database/database_helper.dart';
 import 'mainScaffold.dart';
 import 'models/goalmanager.dart';
-import 'models/goal.dart';
 import 'models/taskmanager.dart';
-import 'models/task.dart';
 import 'models/ProgressLogManager.dart';
-import 'models/progresslog.dart';
 import 'models/projectManager.dart';
-import 'models/project.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter();
-  // Register adapters
-  Hive.registerAdapter(GoalAdapter());
-  Hive.registerAdapter(TaskAdapter());
-  Hive.registerAdapter(ProgresslogAdapter());
-  Hive.registerAdapter(ProjectAdapter());
 
-  // uncomment and change name to box you want to delete. for debugging only.
-  await Hive.deleteBoxFromDisk('goals');
-  await Hive.deleteBoxFromDisk('tasks');
-  await Hive.deleteBoxFromDisk('progresslogs');
-  await Hive.deleteBoxFromDisk('projects');
-
-  // open boxes
-  await Hive.openBox<Goal>('goals');
-  await Hive.openBox<Task>('tasks');
-  await Hive.openBox<Progresslog>('progresslogs');
-  await Hive.openBox<Project>('projects');
+  // Initialize PostgreSQL database
+  try {
+    await DatabaseHelper.instance.initConnection();
+    print('Database setup complete!');
+  } catch (e) {
+    print('Failed to initialize database: $e');
+  }
 
   runApp(
     MultiProvider(

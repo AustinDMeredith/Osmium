@@ -1,36 +1,65 @@
 import 'package:flutter/foundation.dart';
-import 'package:hive/hive.dart';
-import 'package:uuid/uuid.dart';
+import '../repositories/goal_repository.dart';
 import 'goal.dart';
 
 class GoalManager extends ChangeNotifier {
-  // Get the box when needed, after it's open in main()
-  Box<Goal> get _goalBox => Hive.box<Goal>('goals');
+  final GoalRepository _repository = GoalRepository();
+  List<Goal> _goals = []; // In-memory cache
+  bool _isLoading = false; // Loading state
 
-  // Add a goal
-  void addGoal(String id, Goal goal) {
-    _goalBox.put(id, goal);
+  // Getters expose data to UI
+  List<Goal> get goals => _goals;
+  bool get isLoading => _isLoading;
+
+  // Load goals from repository
+  Future<void> loadGoals() async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      _goals = await _repository.getAll();
+    } catch (e) {
+      print('Error loading goals: $e');
+    }
+
+    _isLoading = false;
     notifyListeners();
   }
 
-  // Get a goal by id
-  Goal? getGoal(String id) {
-    return _goalBox.get(id);
+  // Add new goal
+  Future<void> addGoal(Goal goal) async {
+    try {
+      final id = await _repository.create(goal);
+      goal.id = id;
+      _goals.add(goal);
+      notifyListeners();
+    } catch (e) {
+      print('Error adding goal: $e');
+    }
   }
 
-  // Get all goals as a map
-  Map<dynamic, Goal> get goals => _goalBox.toMap();
-
-  // Remove a goal
-  void removeGoal(String id) {
-    _goalBox.delete(id);
-    notifyListeners();
+  // Update existing goal
+  Future<void> updateGoal(Goal goal) async {
+    try {
+      await _repository.update(goal);
+      final index = _goals.indexWhere((g) => g.id == goal.id);
+      if (index != -1) {
+        _goals[index] = goal;
+        notifyListeners();
+      }
+    } catch (e) {
+      print('Error updating goal: $e');
+    }
   }
 
-  final Uuid uuid = Uuid();
-  // Get the next available id (simple example)
-  String getNextId() {
-    String id = uuid.v4();
-    return id;
+  // Delete goal
+  Future<void> deleteGoal(String id) async {
+    try {
+      await _repository.delete(id);
+      _goals.removeWhere((goal) => goal.id == id);
+      notifyListeners();
+    } catch (e) {
+      print('Error deleting goal: $e');
+    }
   }
 }

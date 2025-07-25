@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../models/project.dart';
-import '../../eventHandlers/onGoalCreated.dart';
-import '../../eventHandlers/onTaskCreated.dart';
-import '../../eventHandlers/onLogCreated.dart';
+import '../../events/onGoalCreated.dart';
+import '../../events/onTaskCreated.dart';
+import '../../events/onLogCreated.dart';
 import '../multiUse/addTask.dart';
 import '../multiUse/addProgress.dart';
 import 'addMilestone.dart';

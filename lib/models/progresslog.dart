@@ -1,37 +1,45 @@
 import 'dart:core';
-import 'package:hive/hive.dart';
-part 'progresslog.g.dart';
 
-@HiveType(typeId: 2)
-class Progresslog {
-  @HiveField(0)
+class ProgressLog {
+  String? id;
   String name;
-
-  @HiveField(1)
+  int progressMade;
   String description;
+  String parentId;      // Can be goal, project, or task ID
+  String parentType;    // 'goal', 'project', 'task'
+  DateTime? createdAt;
 
-  @HiveField(2)
-  double progressMade;
-
-  @HiveField(3)
-  DateTime time;
-
-  @HiveField(4)
-  String isOf;
-
-  @HiveField(5)
-  String parentId;
-
-  @HiveField(6)
-  int id;
-
-  Progresslog({
+  ProgressLog({
+    this.id,
     required this.name,
     required this.progressMade,
-    required this.id,
-    this.isOf = 'null',
-    this.parentId = '',
-    this.description = 'Add a description',
-    DateTime? time,
-  }) : time = time ?? DateTime.now();
+    this.description = '',
+    required this.parentId,
+    required this.parentType,
+    this.createdAt,
+  });
+
+  factory ProgressLog.fromMap(Map<String, dynamic> map) {
+    return ProgressLog(
+      id: map['id'],
+      name: map['name'],
+      progressMade: map['progress_made'],
+      description: map['description'] ?? '',
+      parentId: map['parent_id'],
+      parentType: map['parent_type'],
+      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'progress_made': progressMade,
+      'description': description,
+      'parent_id': parentId,
+      'parent_type': parentType,
+      'created_at': createdAt?.toIso8601String(),
+    };
+  }
 }
