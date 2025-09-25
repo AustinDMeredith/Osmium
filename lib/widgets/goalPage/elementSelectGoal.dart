@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../eventHandlers/onTaskCreated.dart';
-import '../../eventHandlers/onLogCreated.dart';
+import '../../events/onTaskCreated.dart';
+import '../../events/onLogCreated.dart';
 import '../../models/goal.dart';
 import '../multiUse/addTask.dart';
 import '../multiUse/addProgress.dart';

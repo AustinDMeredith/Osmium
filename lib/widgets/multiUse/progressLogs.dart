@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../eventHandlers/onLogDelete.dart';
+import '../../events/onLogDelete.dart';
 import '../../widgets/multiUse/delete.dart';
 import '../../models/progresslog.dart';
 

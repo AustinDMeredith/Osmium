@@ -6,7 +6,7 @@ import '../multiUse/activityBtn.dart';
 import '../multiUse/delete.dart';
 // import '../multiUse/settings.dart';
 import '../goalPage/elementSelectGoal.dart';
-import '../../eventHandlers/onGoalDelete.dart';
+import '../../events/onGoalDelete.dart';
 
 class GoalAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Goal goal;

@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import '../../models/task.dart';
 import '../../models/taskmanager.dart';
-import '../../eventHandlers/onTaskCompleted.dart';
-import '../../eventHandlers/onTaskDeleted.dart';
+import '../../events/onTaskCompleted.dart';
+import '../../events/onTaskDeleted.dart';
 
 class DisplayTasks extends StatelessWidget {
   final List<Task> tasks;
